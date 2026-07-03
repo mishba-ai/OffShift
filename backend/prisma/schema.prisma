@@ -1,11 +1,93 @@
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
   provider = "prisma-client"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum Role {
+  EMPLOYEE
+  MANAGER
+}
+
+enum LeaveType {
+  SICK
+  CASUAL
+  EARNED
+  UNPAID
+}
+
+enum LeaveStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  CANCELLED
+}
+
+model Employee {
+  id         String @id @default(uuid())
+  name       String
+  email      String @unique
+  password   String
+  department String
+  role       Role   @default(EMPLOYEE)
+
+  managerId String?
+  manager   Employee?  @relation("EmployeeManager", fields: [managerId], references: [id])
+  reports   Employee[] @relation("EmployeeManager")
+
+  leaves         Leave[] @relation("EmployeeLeaves")
+  reviewedLeaves Leave[] @relation("ManagerReviews")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  leaveBalances LeaveBalance[]
+
+  @@index([managerId])
+  @@index([department])
+}
+
+model Leave {
+  id String @id @default(uuid())
+
+  employeeId String
+  employee   Employee @relation("EmployeeLeaves", fields: [employeeId], references: [id], onDelete: Cascade)
+
+  leaveType LeaveType
+  startDate DateTime
+  endDate   DateTime
+  reason    String
+
+  status          LeaveStatus @default(PENDING)
+  managerComments String?
+
+  reviewedById String?
+  reviewedBy   Employee? @relation("ManagerReviews", fields: [reviewedById], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([employeeId])
+  @@index([status])
+  @@index([leaveType])
+  @@index([startDate, endDate])
+}
+
+model LeaveBalance {
+  id         String    @id @default(uuid())
+  employeeId String
+  employee   Employee  @relation(fields: [employeeId], references: [id])
+  leaveType  LeaveType
+  year       Int
+  allocated  Int       @default(0)
+  used       Int       @default(0)
+  remaining  Int       @default(0)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+
+  @@unique([employeeId, leaveType, year])
+  @@index([employeeId, year])
 }
