@@ -4,9 +4,9 @@ import prisma from "../lib/prisma.js"
 
 export const getEmployee = async (req: Request, res: Response) => {
     try {
-        const id = req.query
+        const id = req.params.id 
         if (!id || typeof id !== "string") {
-            return res.status(401).json({ error: 'id  not found' })
+            return res.status(401).json({ error: 'id  is required ' })
         }
         const employee = await prisma.employee.findUnique(
             { where: { id } }
@@ -78,6 +78,6 @@ export const getEmployees = async (req: Request, res: Response) => {
         })
     } catch (error) {
         console.error(error)
-        return res.status(5)
+        return res.status(500).json({error:"internal server error"})
     }
 }
