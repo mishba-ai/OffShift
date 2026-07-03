@@ -689,6 +689,7 @@ export const LeaveScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   reason: 'reason',
+  totalDays: 'totalDays',
   status: 'status',
   managerComments: 'managerComments',
   reviewedById: 'reviewedById',
@@ -801,20 +802,6 @@ export type ListEnumLeaveTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$Pr
 
 
 /**
- * Reference to a field of type 'LeaveStatus'
- */
-export type EnumLeaveStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaveStatus'>
-    
-
-
-/**
- * Reference to a field of type 'LeaveStatus[]'
- */
-export type ListEnumLeaveStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaveStatus[]'>
-    
-
-
-/**
  * Reference to a field of type 'Int'
  */
 export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int'>
@@ -825,6 +812,20 @@ export type IntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'In
  * Reference to a field of type 'Int[]'
  */
 export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Int[]'>
+    
+
+
+/**
+ * Reference to a field of type 'LeaveStatus'
+ */
+export type EnumLeaveStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaveStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'LeaveStatus[]'
+ */
+export type ListEnumLeaveStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'LeaveStatus[]'>
     
 
 

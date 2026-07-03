@@ -516,14 +516,6 @@ export type LeaveBalanceUncheckedUpdateManyWithoutEmployeeNestedInput = {
   deleteMany?: Prisma.LeaveBalanceScalarWhereInput | Prisma.LeaveBalanceScalarWhereInput[]
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type LeaveBalanceCreateWithoutEmployeeInput = {
   id?: string
   leaveType: $Enums.LeaveType

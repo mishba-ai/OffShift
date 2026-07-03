@@ -13,7 +13,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) =>{
 
     try {
         const decoded = jwt.verify(token!, process.env.JWT_SECRET!) as Appjwtpayload;
-        req.body.user = {id:decoded.id,role:decoded.role};
+        req.user = {id:decoded.id,role:decoded.role};
         next();
     } catch (error) {
         return res.status(401).json({error:"Invalid token"})

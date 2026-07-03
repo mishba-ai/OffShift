@@ -5,7 +5,7 @@ import { requireRole } from "../middleware/requireRole.js";
 
 const empRoutes: Router = Router();
 
-empRoutes.get('/employee',verifyToken,requireRole("MANAGER"),getEmployees)
+empRoutes.get('/employees',verifyToken,requireRole("MANAGER"),getEmployees)
 empRoutes.get('/employee/:id',verifyToken,getEmployee)
 
 

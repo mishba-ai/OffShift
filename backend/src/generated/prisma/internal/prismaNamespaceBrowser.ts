@@ -94,6 +94,7 @@ export const LeaveScalarFieldEnum = {
   startDate: 'startDate',
   endDate: 'endDate',
   reason: 'reason',
+  totalDays: 'totalDays',
   status: 'status',
   managerComments: 'managerComments',
   reviewedById: 'reviewedById',
