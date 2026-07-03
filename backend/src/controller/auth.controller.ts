@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import prisma from '../../lib/prisma.js'
+import prisma from '../lib/prisma.js'
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 
@@ -39,7 +39,7 @@ export const Register = async (req: Request, res: Response, next: NextFunction) 
     }
 }
 
-const login = async (req: Request, res: Response) => {
+export const login = async (req: Request, res: Response) => {
     try {
         const { email, password } = req.body
         if (!email || !password) {
@@ -66,7 +66,7 @@ const login = async (req: Request, res: Response) => {
     }
 }
 
-const logout = async (req: Request, res: Response) => {
+export const logout = async (req: Request, res: Response) => {
     try {
 
     } catch (error) {
