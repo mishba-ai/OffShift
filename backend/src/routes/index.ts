@@ -8,5 +8,7 @@ import { requireRole } from "../middleware/requireRole.js";
 const router: ExpressRouter = Router()
 
 router.use('', auth)
+router.use('',empRoutes)
+
 
 export {router}
