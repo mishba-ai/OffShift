@@ -2,6 +2,9 @@ import "dotenv/config";
 import express from 'express'
 import cors from 'cors'
 import { router } from './routes/index.js'
+import { AppError } from "./utils/AppError.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+
 
 const app = express()
 
@@ -18,6 +21,12 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1',apiRoutes)
 
+app.use((req, res, next) => {
+  next(new AppError(`Route ${req.originalUrl} not found`, 404));
+});
+
+app.use(errorHandler);
+
 app.listen(PORT, () => {
-    console.log(`'http://localhost:${PORT}'`,PORT);
+    console.log(`'http://localhost:${PORT}'`);
 })
