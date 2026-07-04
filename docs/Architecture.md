@@ -54,7 +54,6 @@ Response sent back OR error thrown
 errorHandler middleware (catches anything thrown, formats consistent JSON error)
 ```
 
-**Why services are separate from controllers:** controllers should only touch `req`/`res` — parsing input, calling a service, sending output. All DB logic and business rules (like the balance-deduction transaction) live in `services/`. 
 
 ---
 
