@@ -1,8 +1,15 @@
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { AppSidebar } from "@/components/app-sidebar.tsx"
+import { Outlet } from "react-router"
 
-function Layout() {
+export default function Layout() {
   return (
-    <div>Layout</div>
+    <SidebarProvider>
+      <AppSidebar />
+      <main className="flex gap-x-8 w-full">
+        <SidebarTrigger />
+        <Outlet />
+      </main>
+    </SidebarProvider>
   )
 }
-
-export default Layout
