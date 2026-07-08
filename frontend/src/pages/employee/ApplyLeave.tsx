@@ -88,9 +88,9 @@ export default function ApplyLeave() {
         </p>
       </div>
 
-      <div className="grid grid-cols-1  lg:grid-cols-3  gap-6 items-start">
+      <div className="grid grid-cols-1 p-6 lg:grid-cols-3 gap-6 items-start">
         
-        <Card className="lg:col-span-2">
+        <Card className="lg:col-span-3 ">
           <CardHeader>
             <CardTitle>Leave Application Details</CardTitle>
             <CardDescription>
@@ -177,16 +177,13 @@ export default function ApplyLeave() {
                   Cancel
                 </Button>
                 <Button type="submit" disabled={loading} className="px-6">
-                  {loading ? "Submitting Request..." : "Submit Application"}
+                  {loading ? "Submitting Request..." : "Submit Leave"}
                 </Button>
               </div>
 
             </form>
           </CardContent>
         </Card>
-
-        
-
       </div>
     </div>
   );

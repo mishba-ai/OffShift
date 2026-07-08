@@ -6,24 +6,29 @@ const [leaves, setLeaves] = useState<LeaveRequest[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchLeaves = async () => {
-      try {
-        const resp = await api.get<LeaveRequest[]>('leaves');
-        setLeaves(resp.data);
-      } catch (error) {
-        console.error('Failed to load leaves', error);
-      } finally {
-        setLoading(false);
-      }
-    };
+   const fetchLeaves = async () => {
+    try {
+      const resp = await api.get<{ leaves: LeaveRequest[] }>('leaves');
+      
+      const leavesData = resp.data?.leaves || [];
+      setLeaves(leavesData);
+      
+    } catch (error) {
+      console.error('Failed to load leaves', error);
+      setLeaves([]); 
+    } finally {
+      setLoading(false);
+    }
+  };
 
-    void fetchLeaves();
+  void fetchLeaves();
   }, []);
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 w-full ">
       <h1 className="text-2xl font-bold tracking-tight">Your Leave History</h1>
-      <LeaveTable leaves={leaves} />
+      <div className="w-full p-6">
+      <LeaveTable leaves={leaves} /></div>
     </div>
   )
 }

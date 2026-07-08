@@ -53,11 +53,11 @@ export function LeaveTable({ leaves }: LeaveTableProps) {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[120px]">Type</TableHead>
+            <TableHead className="w-120">Type</TableHead>
             <TableHead>Start Date</TableHead>
             <TableHead>End Date</TableHead>
             <TableHead className="text-center">Days</TableHead>
-            <TableHead className="max-w-[200px] truncate">Reason</TableHead>
+            <TableHead className="max-w-200 truncate">Reason</TableHead>
             <TableHead className="text-right">Status</TableHead>
           </TableRow>
         </TableHeader>
@@ -84,7 +84,7 @@ export function LeaveTable({ leaves }: LeaveTableProps) {
                 <TableCell className="text-center">{leave.totalDays}</TableCell>
                 
                 {/* Reason description */}
-                <TableCell className="max-w-[200px] truncate text-muted-foreground" title={leave.reason}>
+                <TableCell className="max-w-200 truncate text-muted-foreground" title={leave.reason}>
                   {leave.reason}
                 </TableCell>
                 

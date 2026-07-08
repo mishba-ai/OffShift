@@ -42,7 +42,7 @@ export default function EmployeeDashboard() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 w-full p-6">
       {/* Header */}
       <div>
         <h1 className="text-3xl font-bold tracking-tight">Employee Dashboard</h1>
