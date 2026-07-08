@@ -14,11 +14,13 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import mountain from '/mountain.webp'
 import api from "@/api/axiosInstance"
-import type { ChangeEvent, SubmitEvent } from "react"
+import type { ChangeEvent } from "react"
+import { useAuth } from "@/hooks/useAuth"
 
 
 function Login() {
   const navigate = useNavigate()
+  const {login} =useAuth()
   const [isSignup, setIsSignup] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -30,12 +32,13 @@ function Login() {
     role: "EMPLOYEE",
     department: ""
   })
+  
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value })
   }
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.SubmitEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError("")
     setLoading(true)
@@ -54,14 +57,14 @@ function Login() {
         setForm({ ...form, password: "" })
         setError("")
       } else {
-        localStorage.setItem("token", data.token)
-        localStorage.setItem("role", data.role)
+        login(data.token,data.user)
 
         navigate(data.role === "MANAGER" ? "/manager/dashboard" : "/employee/dashboard")
       }
-    } catch (err: any) {
-      console.error("LOGIN ERROR:", err.response?.status, err.response?.data)
-      setError(err.response?.data?.error || "Unable to reach server")
+    } catch (err) {
+      const error = err as {response?:{status?:number;data?:{error?:string}}}
+      console.error("LOGIN ERROR:", error.response?.status, error.response?.data)
+      setError(error.response?.data?.error || "Unable to reach server")
     } finally {
       setLoading(false)
     }
@@ -190,7 +193,6 @@ function Login() {
                 <Button
                   type="submit"
                   className="w-full"
-                  onSubmit={handleSubmit}
                   disabled={loading}
                 >
                   {loading ? "Please wait..." : isSignup ? "Sign Up" : "Login"}
