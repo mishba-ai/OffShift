@@ -59,10 +59,13 @@ export const login = async (req: Request, res: Response) => {
             id: user.id, role: user.role
         }, process.env.JWT_SECRET!, { expiresIn: "1d" })
         
-        return res.status(200).json({ token, role: user.role })
+        const{password:_,...userWithoutPassword}=user;
+        return res.status(200).json({ token, user: userWithoutPassword })
     }
     catch (error) {
         console.error(error)
+                return res.status(500).json({ error: "internal server error" })  
+
     }
 }
 

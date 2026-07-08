@@ -176,7 +176,7 @@ export type EmployeeGroupByOutputType = {
   name: string
   email: string
   password: string
-  department: string
+  department: string | null
   role: $Enums.Role
   managerId: string | null
   createdAt: Date
@@ -209,7 +209,7 @@ export type EmployeeWhereInput = {
   name?: Prisma.StringFilter<"Employee"> | string
   email?: Prisma.StringFilter<"Employee"> | string
   password?: Prisma.StringFilter<"Employee"> | string
-  department?: Prisma.StringFilter<"Employee"> | string
+  department?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumRoleFilter<"Employee"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -226,7 +226,7 @@ export type EmployeeOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  department?: Prisma.SortOrder
+  department?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -246,7 +246,7 @@ export type EmployeeWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.EmployeeWhereInput | Prisma.EmployeeWhereInput[]
   name?: Prisma.StringFilter<"Employee"> | string
   password?: Prisma.StringFilter<"Employee"> | string
-  department?: Prisma.StringFilter<"Employee"> | string
+  department?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumRoleFilter<"Employee"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -263,7 +263,7 @@ export type EmployeeOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   password?: Prisma.SortOrder
-  department?: Prisma.SortOrder
+  department?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   managerId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -281,7 +281,7 @@ export type EmployeeScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   email?: Prisma.StringWithAggregatesFilter<"Employee"> | string
   password?: Prisma.StringWithAggregatesFilter<"Employee"> | string
-  department?: Prisma.StringWithAggregatesFilter<"Employee"> | string
+  department?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   role?: Prisma.EnumRoleWithAggregatesFilter<"Employee"> | $Enums.Role
   managerId?: Prisma.StringNullableWithAggregatesFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Employee"> | Date | string
@@ -293,7 +293,7 @@ export type EmployeeCreateInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -309,7 +309,7 @@ export type EmployeeUncheckedCreateInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -325,7 +325,7 @@ export type EmployeeUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -341,7 +341,7 @@ export type EmployeeUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -357,7 +357,7 @@ export type EmployeeCreateManyInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -369,7 +369,7 @@ export type EmployeeUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -380,7 +380,7 @@ export type EmployeeUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -467,6 +467,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type EnumRoleFieldUpdateOperationsInput = {
   set?: $Enums.Role
 }
@@ -497,10 +501,6 @@ export type EmployeeUpdateManyWithoutManagerNestedInput = {
   update?: Prisma.EmployeeUpdateWithWhereUniqueWithoutManagerInput | Prisma.EmployeeUpdateWithWhereUniqueWithoutManagerInput[]
   updateMany?: Prisma.EmployeeUpdateManyWithWhereWithoutManagerInput | Prisma.EmployeeUpdateManyWithWhereWithoutManagerInput[]
   deleteMany?: Prisma.EmployeeScalarWhereInput | Prisma.EmployeeScalarWhereInput[]
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type EmployeeUncheckedUpdateManyWithoutManagerNestedInput = {
@@ -566,7 +566,7 @@ export type EmployeeCreateWithoutReportsInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -581,7 +581,7 @@ export type EmployeeUncheckedCreateWithoutReportsInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -601,7 +601,7 @@ export type EmployeeCreateWithoutManagerInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -616,7 +616,7 @@ export type EmployeeUncheckedCreateWithoutManagerInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -652,7 +652,7 @@ export type EmployeeUpdateWithoutReportsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -667,7 +667,7 @@ export type EmployeeUncheckedUpdateWithoutReportsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -701,7 +701,7 @@ export type EmployeeScalarWhereInput = {
   name?: Prisma.StringFilter<"Employee"> | string
   email?: Prisma.StringFilter<"Employee"> | string
   password?: Prisma.StringFilter<"Employee"> | string
-  department?: Prisma.StringFilter<"Employee"> | string
+  department?: Prisma.StringNullableFilter<"Employee"> | string | null
   role?: Prisma.EnumRoleFilter<"Employee"> | $Enums.Role
   managerId?: Prisma.StringNullableFilter<"Employee"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Employee"> | Date | string
@@ -713,7 +713,7 @@ export type EmployeeCreateWithoutLeavesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -728,7 +728,7 @@ export type EmployeeUncheckedCreateWithoutLeavesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -748,7 +748,7 @@ export type EmployeeCreateWithoutReviewedLeavesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -763,7 +763,7 @@ export type EmployeeUncheckedCreateWithoutReviewedLeavesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -794,7 +794,7 @@ export type EmployeeUpdateWithoutLeavesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -809,7 +809,7 @@ export type EmployeeUncheckedUpdateWithoutLeavesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -835,7 +835,7 @@ export type EmployeeUpdateWithoutReviewedLeavesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -850,7 +850,7 @@ export type EmployeeUncheckedUpdateWithoutReviewedLeavesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -865,7 +865,7 @@ export type EmployeeCreateWithoutLeaveBalancesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -880,7 +880,7 @@ export type EmployeeUncheckedCreateWithoutLeaveBalancesInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   managerId?: string | null
   createdAt?: Date | string
@@ -911,7 +911,7 @@ export type EmployeeUpdateWithoutLeaveBalancesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -926,7 +926,7 @@ export type EmployeeUncheckedUpdateWithoutLeaveBalancesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   managerId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -941,7 +941,7 @@ export type EmployeeCreateManyManagerInput = {
   name: string
   email: string
   password: string
-  department: string
+  department?: string | null
   role?: $Enums.Role
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -952,7 +952,7 @@ export type EmployeeUpdateWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -967,7 +967,7 @@ export type EmployeeUncheckedUpdateWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -982,7 +982,7 @@ export type EmployeeUncheckedUpdateManyWithoutManagerInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   password?: Prisma.StringFieldUpdateOperationsInput | string
-  department?: Prisma.StringFieldUpdateOperationsInput | string
+  department?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -1132,7 +1132,7 @@ export type $EmployeePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     name: string
     email: string
     password: string
-    department: string
+    department: string | null
     role: $Enums.Role
     managerId: string | null
     createdAt: Date

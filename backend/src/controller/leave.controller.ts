@@ -7,6 +7,7 @@ const calculateDays = (start: Date, end: Date): number => {
     return Math.round((end.getTime() - start.getTime()) / msPerDay) + 1;
 };
 
+// post leave
 export const applyLeave = async (req: Request, res: Response) => {
     try {
         const employeeId = req.user!.id;
